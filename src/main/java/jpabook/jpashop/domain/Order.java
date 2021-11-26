@@ -44,7 +44,7 @@ public class Order {
 
 
     // === 연관 관계 편입 메서드 === //
-    // 연관관계편입메서드의 위치는 컨트롤 하는 곳에 만드는게 좋다
+    // 연관 관계 편입 메서드의 위치는 컨트롤 하는 곳에 만드는게 좋다
     public void setMember(Member member){
         this.member = member;
         member.getOrders().add(this);
