@@ -21,7 +21,7 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 // 싱글 테이블로 DB에 저장할때 구분할 구분자가 필요하다
 @DiscriminatorColumn(name = "dtype")
-@Getter @Setter
+@Getter
 public abstract class Item {
 
     @Id
@@ -36,7 +36,14 @@ public abstract class Item {
     @ManyToMany(mappedBy = "items")
     private List<Category> categories = new ArrayList<>();
 
+    public Item(){};
 
+    public Item(Long id, String name, int price, int stockQuantity){
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+    }
 
     // == 비즈니스 로직 == //
     /**
