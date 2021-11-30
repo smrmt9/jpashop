@@ -38,8 +38,7 @@ public abstract class Item {
 
     public Item(){};
 
-    public Item(Long id, String name, int price, int stockQuantity){
-        this.id = id;
+    public Item(String name, int price, int stockQuantity){
         this.name = name;
         this.price = price;
         this.stockQuantity = stockQuantity;
@@ -61,12 +60,15 @@ public abstract class Item {
         if(restStock < 0){
             throw new NotEnoughStockException("need more stock");
         }
-
         this.stockQuantity = restStock;
-
     }
 
 
 
 
+    public void change(String name, int price, int stockQuantity){
+        this.name = name;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+    }
 }

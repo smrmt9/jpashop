@@ -18,8 +18,8 @@ public class Album extends Item {
     private Album(){};
 
     @Builder
-    private Album(Long id, String name, int price, int stockQuantity, String artist, String etc) {
-        super(id, name, price, stockQuantity);
+    private Album(String name, int price, int stockQuantity, String artist, String etc) {
+        super(name, price, stockQuantity);
         this.artist = artist;
         this.etc = etc;
     }

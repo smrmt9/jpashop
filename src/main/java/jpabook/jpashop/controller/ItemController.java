@@ -3,6 +3,7 @@ package jpabook.jpashop.controller;
 import jpabook.jpashop.domain.item.Book;
 import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.service.ItemService;
+import jpabook.jpashop.service.UpdateItemDTO;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,8 +38,7 @@ public class ItemController {
         }
 
         Book book = Book.createBook(form.getName(), form.getPrice(), form.getStockQuantity(), form.getIsbn(), form.getAuthor());
-        itemService.setItem(book);
-        logger.info(":::::::::::::::::::::::::::::::::::::::::::::::::::::::"+book.getId());
+        itemService.saveItem(book);
         return "redirect:/items";
     }
 
@@ -67,12 +67,13 @@ public class ItemController {
         if(result.hasErrors()){
             return "items/updateItemForm";
         }
+        UpdateItemDTO itemDTO = new UpdateItemDTO();
+        itemDTO.setId(form.getId());
+        itemDTO.setName(form.getName());
+        itemDTO.setPrice(form.getPrice());
+        itemDTO.setStockQuantity(form.getStockQuantity());
 
-        Book book = Book.builder().id(form.getId()).name(form.getName()).price(form.getPrice()).stockQuantity(form.getStockQuantity()).author(form.getAuthor()).isbn(form.getIsbn())
-                .build();;
-
-        itemService.setItem(book);
-
+        itemService.updateItem(itemId, itemDTO);
         return "redirect:/items";
     }
 

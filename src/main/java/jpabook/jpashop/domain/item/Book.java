@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("B")
+@Getter
 public class Book extends Item {
 
     private String author;
@@ -18,8 +19,8 @@ public class Book extends Item {
     private Book(){};
 
     @Builder
-    private Book(Long id, String name, int price, int stockQuantity, String author, String isbn){
-        super(id, name, price, stockQuantity);
+    private Book( String name, int price, int stockQuantity, String author, String isbn){
+        super(name, price, stockQuantity);
         this. author = author;
         this. isbn = isbn;
 
@@ -30,5 +31,10 @@ public class Book extends Item {
                 .build();
         return book;
     }
-    
+
+    public void updateBook(String name, int price, int stockQuantity, String author, String isbn){
+        super.change(name,price,stockQuantity);
+        this.author = author;
+        this.isbn = isbn;
+    }
 }
