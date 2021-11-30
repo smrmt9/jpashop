@@ -1,5 +1,6 @@
 package jpabook.jpashop.repository;
 
+import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.domain.OrderSearch;
 import jpabook.jpashop.domain.OrderStatus;
@@ -46,31 +47,31 @@ public class OrderRepository {
      * JPA에서 제공하는 동적 쿼리 사용법
      * JPA Criteria : JPA 표준 스펙
      * 단점 : 유지보수가 힘들다
-     * QueryDSL : 위에 문제를 보완하기 위해 나온 것
+     * QueryDSL : 위에 문제를 보완하기 위해 나온 것 하지만 불편하다
      */
-    public List<Order> findAllByCriteria(OrderSearch orderSearch){
+    public List<Order> findAllByCriteria(OrderSearch orderSearch) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Order> cq = cb.createQuery(Order.class);
         Root<Order> o = cq.from(Order.class);
-        Join<Object, Object> m = o.join("member", JoinType.INNER);
-
+        Join<Order, Member> m = o.join("member", JoinType.INNER); //회원과 조인
         List<Predicate> criteria = new ArrayList<>();
-
-        // 주문 상태 검색
-        if(orderSearch.getOrderStatus() != null){
-            Predicate status = cb.equal(o.get("status"), orderSearch.getOrderStatus());
+        //주문 상태 검색
+        if (orderSearch.getOrderStatus() != null) {
+            Predicate status = cb.equal(o.get("status"),
+                    orderSearch.getOrderStatus());
             criteria.add(status);
         }
-        // 회원 이름 검색
-        if(StringUtils.hasText(orderSearch.getMemberName())){
-            Predicate name = cb.equal(o.get("name"), "%" + orderSearch.getMemberName() + "%");
+        //회원 이름 검색
+        if (StringUtils.hasText(orderSearch.getMemberName())) {
+            Predicate name =
+                    cb.like(m.<String>get("name"), "%" +
+                            orderSearch.getMemberName() + "%");
             criteria.add(name);
         }
-
-        cq.where(cb.and(criteria.toArray(new Predicate[criteria.size()]))); 
-        TypedQuery<Order> query = em.createQuery(cq).setMaxResults(1000);
-
+        cq.where(cb.and(criteria.toArray(new Predicate[criteria.size()])));
+        TypedQuery<Order> query = em.createQuery(cq).setMaxResults(1000); //최대1000건
         return query.getResultList();
     }
+    
 
 }

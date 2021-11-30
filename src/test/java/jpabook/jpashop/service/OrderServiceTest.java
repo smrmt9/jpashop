@@ -88,8 +88,7 @@ public class OrderServiceTest {
     @Test
     public void 수량감소() throws Exception{
         //given
-        Item book = new Book();
-        book.setStockQuantity(10);
+        Item book = Book.createBook("test",10000,10,"tester","97988");
 
         //when
         book.removeStock(11);
@@ -104,15 +103,12 @@ public class OrderServiceTest {
     private Member createMember() {
         Member member = new Member();
         member.setName("회원1");
-        member.setAdress(new Address("서울","경기","123-123"));
+        member.setAddress(new Address("서울","경기","123-123"));
         em.persist(member);
         return member;
     }
     private Item createBook(String name, int price, int stockQuantity) {
-        Item book = new Book();
-        book.setName(name);
-        book.setPrice(price);
-        book.setStockQuantity(stockQuantity);
+        Item book = Book.createBook(name, price, stockQuantity, "tester", "979899");
         em.persist(book);
         return book;
     }
