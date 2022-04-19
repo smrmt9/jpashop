@@ -15,7 +15,7 @@ public class Album extends Item {
     private String artist;
     private String etc;
 
-    private Album(){};
+    public Album(){};
 
     @Builder
     private Album(String name, int price, int stockQuantity, String artist, String etc) {

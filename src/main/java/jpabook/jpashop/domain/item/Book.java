@@ -1,9 +1,6 @@
 package jpabook.jpashop.domain.item;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -16,7 +13,7 @@ public class Book extends Item {
     private String author;
     private String isbn;
 
-    private Book(){};
+    public Book(){};
 
     @Builder
     private Book( String name, int price, int stockQuantity, String author, String isbn){
