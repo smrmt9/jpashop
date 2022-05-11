@@ -1,0 +1,22 @@
+### 회원 등록 API
+### Entity로 request를 받는다
+### Entity 변경 시 문제
+POST http://localhost:8081/api/v1/members
+Content-Type: application/json
+
+{
+  "name": "hello3"
+}
+
+### 회원 등록2 API
+### api request 전용 객체를 만들어 받는다
+#
+#POST http://localhost:8081/api/v2/members
+#Content-Type: application/json
+#
+#{
+#  "name": "hello2"
+#}
+
+
+

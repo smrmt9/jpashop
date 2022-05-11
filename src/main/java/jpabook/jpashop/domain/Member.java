@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class Member {
     @Id @GeneratedValue
     @Column(name = "member_id")
     private Long id;
+
     private String name;
 
     // 내장 타입을 쓸경우 해당 클래스에 @Embedable을 해당 객체에 @Embedded로 매핑을해준다 (단 한군데만 해줘도 된다)
